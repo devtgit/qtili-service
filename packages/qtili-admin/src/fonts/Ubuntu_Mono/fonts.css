@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "UbuntuMono";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local("UbuntuMono"), url(./UbuntuMono-Italic.ttf) format("TrueType");
+}
+@font-face {
+  font-family: "UbuntuMono";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: local("UbuntuMono"), url(./UbuntuMono-BoldItalic.ttf) format("TrueType");
+}
+
+@font-face {
+  font-family: "UbuntuMono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("UbuntuMono"), url(./UbuntuMono-Regular.ttf) format("TrueType");
+}
+@font-face {
+  font-family: "UbuntuMono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("UbuntuMono"), url(./UbuntuMono-Bold.ttf) format("TrueType");
+}

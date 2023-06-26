@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Ubuntu'), url(./Ubuntu-LightItalic.ttf) format('TrueType');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Ubuntu'), url(./Ubuntu-Italic.ttf) format('TrueType');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Ubuntu'), url(./Ubuntu-MediumItalic.ttf) format('TrueType');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Ubuntu'), url(./Ubuntu-BoldItalic.ttf) format('TrueType');
+}
+
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Ubuntu'), url(./Ubuntu-Light.ttf) format('TrueType');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Ubuntu'), url(./Ubuntu-Regular.ttf) format('TrueType');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Ubuntu'), url(./Ubuntu-Medium.ttf) format('TrueType');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Ubuntu'), url(./Ubuntu-Bold.ttf) format('TrueType');
+}
