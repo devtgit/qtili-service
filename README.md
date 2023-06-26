@@ -1,5 +1,9 @@
 # QTili
 
+```bash
+git pull https://github.com/devtgit/qtili-service.git
+```
+
 ## Install
 
 1. Install pnpm - https://pnpm.io/installation
