@@ -1,0 +1,14 @@
+{
+  "translate": "Как переводится \"{{word}}\"",
+  "submit_answer": "Проверить",
+  "next_question": "Далее",
+  "correct_feedback_title": "Правильно",
+  "incorrect_feedback_title": "Неверно",
+  "incorrect_feedback": "Правильный ответ: {{answer}}",
+  "school_page": "Школа",
+  "stat_page": "Статистика",
+  "settings_page": "Настройки",
+  "start_learning": "Начать занятие",
+  "your_result": "Ваш результат",
+  "loading": "Загрузка"
+}
