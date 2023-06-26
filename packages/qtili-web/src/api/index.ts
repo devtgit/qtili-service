@@ -11,7 +11,6 @@ import { Choice, Lesson, Question, Word } from "@/types";
 import { db, storage } from "@/firebase/config";
 import { getFirstDocumentData } from "@/api/utils";
 import { getBlob, ref } from "firebase/storage";
-import { Recommend } from "@mui/icons-material";
 
 const choicesCount = 4;
 

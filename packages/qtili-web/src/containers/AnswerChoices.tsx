@@ -1,10 +1,8 @@
 import React from "react";
 import { useAtomValue } from "jotai";
-import { getStorage, ref, getBlob, getDownloadURL } from "firebase/storage";
 import { State } from "@/store/State";
 import { Actions } from "@/store/Actions";
 import { ChoiceItem, ChoicesList } from "@/components/ChoicesList";
-import { storage } from "@/firebase/config";
 import { getSound } from "@/api";
 
 const audio = new Audio();
