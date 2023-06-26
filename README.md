@@ -6,7 +6,8 @@ git pull https://github.com/devtgit/qtili-service.git
 
 ## Install
 
-1. Install pnpm - https://pnpm.io/installation
+- Install nodejs - https://nodejs.org/en/download
+- Install pnpm - https://pnpm.io/installation
 
 ## Dev
 
@@ -33,6 +34,7 @@ pnpm dev
 > In case you want to run local firebase emulators instead of connecting to cloud firebase project.
 
 Install Firebase CLI - https://firebase.google.com/docs/cli#install-cli-mac-linux
+Install Java > 11 - https://www.oracle.com/java/technologies/downloads/#java17
 
 ```bash
 pnpm emulators
@@ -75,3 +77,18 @@ cors.json example:
   }
 ]
 ```
+
+## Expo
+
+```bash
+npx create-expo-app QTili # for now TS can be set up manually
+```
+
+* `xcrun simctl list devices` - check available simulators
+* `npm run ios -- --simulator="iPhone 11"` - run in specific simulator
+* `npm install --global expo-cli`
+* `expo install react-native-webview`
+* `pnpm dev --host 0.0.0.0` - make web build available in local network
+
+> React Native Web View - https://blog.logrocket.com/react-native-webview-a-complete-guide/
+> SafeAreView different colors - https://medium.com/reactbrasil/react-native-set-different-colors-on-top-and-bottom-in-safeareaview-component-f008823483f3
