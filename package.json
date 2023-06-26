@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "emulators": "firebase emulators:start --import \"./tmp-imported-firestore-data\" --export-on-exit --only \"functions,firestore,auth,storage\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

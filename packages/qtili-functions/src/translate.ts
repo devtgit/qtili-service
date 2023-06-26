@@ -14,9 +14,7 @@ const hasValue = <T>(arg: T): arg is Exclude<Exclude<T, null>, undefined> => {
   return arg != null;
 };
 
-export const translateWords = async (
-  contents: string[]
-): Promise<string[] | Error> => {
+export const translateWords = async (contents: string[]): Promise<string[]> => {
   const [response] = await translate.translateText({
     parent: `projects/${projectId}/locations/${translationLocation}`,
     contents: contents,

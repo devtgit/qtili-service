@@ -12,7 +12,17 @@ service cloud.firestore {
       allow write: if __hasAuth(request);
     }
 
+    match /lessons_draft/{id} {
+      allow read: if true;
+      allow write: if __hasAuth(request);
+    }
+
     match /kz_ru/{id} {
+      allow read: if true;
+      allow write: if __hasAuth(request);
+    }
+
+    match /dict_kz_ru/{id} {
       allow read: if true;
       allow write: if __hasAuth(request);
     }

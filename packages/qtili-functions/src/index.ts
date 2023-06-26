@@ -7,6 +7,7 @@ import { pipeline } from "stream/promises";
 import { translateWords } from "./translate";
 import { soundWord } from "./sound";
 import { authorized } from "./middlewares";
+import { generateLesson } from "./db";
 
 const app = express();
 app.use(cors({ origin: true }));
@@ -14,7 +15,10 @@ app.use(cors({ origin: true }));
 app.post(
   "/translate",
   authorized,
-  async (request: Request<never, { words: string[] }>, response: Response) => {
+  async (
+    request: Request<never, never, { words: string[] }>,
+    response: Response
+  ) => {
     const { words } = request.body;
     try {
       const translatedWords = await translateWords(words);
@@ -31,10 +35,34 @@ app.post(
 app.post(
   "/sound",
   authorized,
-  async (request: Request<never, { word: string }>, response: Response) => {
+  async (
+    request: Request<never, never, { word: string }>,
+    response: Response
+  ) => {
     const { word } = request.body;
 
     await pipeline((await soundWord(word)).data, response);
+  }
+);
+
+app.post(
+  "/generate",
+  async (
+    request: Request<never, never, { lessonId: string }>,
+    response: Response
+  ) => {
+    const { lessonId } = request.body;
+
+    try {
+      logger.info(lessonId);
+      await generateLesson(lessonId, "dsv.mail@yandex.ru");
+      return response.status(200);
+    } catch (error) {
+      logger.error(error);
+      return response.status(400).json({
+        error,
+      });
+    }
   }
 );
 
