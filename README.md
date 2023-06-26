@@ -1,5 +1,35 @@
 # QTili
 
+## Install
+
+Install pnpm - https://pnpm.io/installation
+
+### Web
+
+```bash
+cd packages/qtili-web
+cp .env.template .env
+pnpm install
+pnpm dev
+```
+
+### Admin
+
+```bash
+cd packages/qtili-admin
+cp .env.template .env
+pnpm install
+pnpm dev
+```
+
+### Emulators (local development, backend)
+
+Install Firebase CLI - https://firebase.google.com/docs/cli#install-cli-mac-linux
+
+```bash
+pnpm emulators
+```
+
 ## Commands
 
 * `firebase install` - setup firebase-tools
