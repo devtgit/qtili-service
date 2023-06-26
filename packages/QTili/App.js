@@ -26,7 +26,12 @@ export default function App() {
               ? { flex: 1, backgroundColor: themeColors.bottom }
               : { flex: 0, height: 0, opacity: 0 }
           }
-          source={{ uri: "http://192.168.1.108:5173/" }}
+          source={{
+            uri:
+              process.env.NODE_ENV === "production"
+                ? "https://qtili-dev2.web.app/"
+                : "http://192.168.1.108:5173/",
+          }}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           hideKeyboardAccessoryView={true}

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "QTili",
-    "slug": "QTili",
+    "slug": "qtili",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6cf04af1-19a4-4e13-b883-dc4c8b829e9c"
+      }
+    },
+    "owner": "devterminal"
   }
 }
