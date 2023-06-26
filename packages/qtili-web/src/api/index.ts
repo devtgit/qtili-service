@@ -8,8 +8,10 @@ import {
   where,
 } from "firebase/firestore/lite";
 import { Choice, Lesson, Question, Word } from "@/types";
-import { db } from "@/firebase/config";
+import { db, storage } from "@/firebase/config";
 import { getFirstDocumentData } from "@/api/utils";
+import { getBlob, ref } from "firebase/storage";
+import { Recommend } from "@mui/icons-material";
 
 const choicesCount = 4;
 
@@ -20,7 +22,7 @@ export const getLesson = async () => {
   // set minimum timeout for downloading
   const delayPromise = new Promise((r) => setTimeout(r, 1300)).then();
 
-  // get words from dictionary using lesson.word_ids
+  // load words
   const allWords = (await Promise.all(
     lesson.words
       .split(/\r?\n/)
@@ -32,6 +34,8 @@ export const getLesson = async () => {
   )) as Word[];
   const wordsDict = Object.fromEntries(allWords.map((x) => [x.id, x]));
   allWords.sort((a, b) => a.wd.localeCompare(b.wd));
+
+  await Promise.all(allWords.map((word) => getSound(word.wd)));
 
   await delayPromise;
 
@@ -86,6 +90,20 @@ export const getLesson = async () => {
     questionsRecord: Object.fromEntries(questions.map((x) => [x.id, x])),
   };
 };
+
+const sounds: Record<string, string> = {};
+
+export async function getSound(word: string) {
+  if (sounds[word]) {
+    return sounds[word];
+  }
+
+  const blob = await getBlob(ref(storage, `snd/${word}.mp3`));
+  const src = URL.createObjectURL(blob);
+
+  sounds[word] = src;
+  return src;
+}
 
 function range(size: number, startAt = 0) {
   return [...Array(size).keys()].map((i) => i + startAt);

@@ -5,6 +5,7 @@ import { State } from "@/store/State";
 import { Actions } from "@/store/Actions";
 import { ChoiceItem, ChoicesList } from "@/components/ChoicesList";
 import { storage } from "@/firebase/config";
+import { getSound } from "@/api";
 
 const audio = new Audio();
 
@@ -30,13 +31,7 @@ export const AnswerChoices = (props: { questionId: string }) => {
               audio.pause();
               audio.currentTime = 0;
 
-              console.log(choice);
-
-              const blob = await getBlob(
-                ref(storage, `snd/${choice.text}.mp3`)
-              );
-              console.log("blob", blob);
-              const src = URL.createObjectURL(blob);
+              const src = await getSound(choice.text);
               console.log("src", src);
 
               // const src = `/sound/${choice.snd}.mp3`;
