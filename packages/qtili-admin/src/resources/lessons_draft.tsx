@@ -94,7 +94,7 @@ export const ResourceEdit = (props: EditProps) => {
               label="Generate"
               onClick={async () => {
                 const res = await axios.post(
-                  "http://127.0.0.1:5001/qtili-dev2/us-central1/app/generate",
+                  "https://app-j5j64oe2pa-uc.a.run.app/generate",
                   {
                     lessonId,
                   }

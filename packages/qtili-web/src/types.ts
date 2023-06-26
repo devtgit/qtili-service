@@ -1,45 +1,48 @@
 type QuestionPageType = {
-  type: 'question'
-}
+  type: "question";
+};
 
 type ResultPageType = {
-  type: 'result'
-  score: number
-}
+  type: "result";
+  score: number;
+};
 
-export type LessonPageType = QuestionPageType | ResultPageType
+export type LessonPageType = QuestionPageType | ResultPageType;
 
 export type Lesson = {
-  id: string
-  title: string
-  word_ids: string[]
-}
+  id: string;
+  title: string;
+  word_ids: string[];
+  words: string;
+};
 
 export type Word = {
-  id: string
-  wd: string
-  tr: string
-}
+  id: string;
+  wd: string;
+  tr: string;
+  pic: string;
+  snd: string;
+};
 
 export type Question = {
-  id: string
+  id: string;
   // type: string
   // text: string
-  word: string
-  choices: Choice[]
-  correctChoiceId: string
-  correctChoiceText: string
-}
+  word: string;
+  choices: Choice[];
+  correctChoiceId: string;
+  correctChoiceText: string;
+};
 
 export type Choice = {
-  id: string
-  text: string
-  pic: string | undefined
-  snd: string | undefined
-}
+  id: string;
+  text: string;
+  pic: string | undefined;
+  snd: string | undefined;
+};
 
 export type Answer = {
-  isSubmitted: boolean
-  selectedId: string | undefined
-  isCorrect: boolean
-}
+  isSubmitted: boolean;
+  selectedId: string | undefined;
+  isCorrect: boolean;
+};

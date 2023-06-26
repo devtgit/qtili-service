@@ -21,40 +21,40 @@ function App() {
       authProvider={authProvider}
       title="Admin"
     >
-      <Resource
-        name="kz_ru"
-        options={{
-          label: "Dictionary: KZ-RU",
-        }}
-        icon={TranslateIcon}
-        list={KzRuResource.ResourceList}
-        create={KzRuResource.ResourceCreate}
-        edit={KzRuResource.ResourceEdit}
-      />
+      {/*<Resource*/}
+      {/*  name="kz_ru"*/}
+      {/*  options={{*/}
+      {/*    label: "Dictionary: KZ-RU",*/}
+      {/*  }}*/}
+      {/*  icon={TranslateIcon}*/}
+      {/*  list={KzRuResource.ResourceList}*/}
+      {/*  create={KzRuResource.ResourceCreate}*/}
+      {/*  edit={KzRuResource.ResourceEdit}*/}
+      {/*/>*/}
       <Resource
         name="dict_kz_ru"
         options={{
-          label: "Dictionary1: KZ-RU",
+          label: "Dictionary: KZ-RU",
         }}
         icon={TranslateIcon}
         list={DictKzRuResource.ResourceList}
         create={DictKzRuResource.ResourceCreate}
         edit={DictKzRuResource.ResourceEdit}
       />
-      <Resource
-        name="lessons"
-        options={{
-          label: "Lessons",
-        }}
-        icon={SchoolIcon}
-        list={LessonsResource.ResourceList}
-        create={LessonsResource.ResourceCreate}
-        edit={LessonsResource.ResourceEdit}
-      />
+      {/*<Resource*/}
+      {/*  name="lessons"*/}
+      {/*  options={{*/}
+      {/*    label: "Lessons",*/}
+      {/*  }}*/}
+      {/*  icon={SchoolIcon}*/}
+      {/*  list={LessonsResource.ResourceList}*/}
+      {/*  create={LessonsResource.ResourceCreate}*/}
+      {/*  edit={LessonsResource.ResourceEdit}*/}
+      {/*/>*/}
       <Resource
         name="lessons_draft"
         options={{
-          label: "Lessons Draft",
+          label: "Lessons",
         }}
         icon={SchoolIcon}
         list={LessonsDraftResource.ResourceList}

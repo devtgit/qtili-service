@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "qtili-dev2"
-  }
+  },
+  "targets": {
+    "qtili-dev2": {
+      "hosting": {
+        "qtili-admin": [
+          "admin-qtili-dev2"
+        ],
+        "qtili-web": [
+          "qtili-dev2"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

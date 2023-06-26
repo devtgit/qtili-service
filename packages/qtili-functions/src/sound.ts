@@ -7,7 +7,7 @@ const voice = "gulshat";
 
 export const soundWord = async (text: string) => {
   return await axios.post<Readable>(
-    `https://api.narakeet.com/text-to-speech/m4a?voice=${voice}`,
+    `https://api.narakeet.com/text-to-speech/mp3?voice=${voice}`,
     text,
     {
       headers: {
