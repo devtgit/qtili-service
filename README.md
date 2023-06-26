@@ -2,14 +2,16 @@
 
 ## Install
 
-Install pnpm - https://pnpm.io/installation
+1. Install pnpm - https://pnpm.io/installation
+
+## Dev
 
 ### Web
 
 ```bash
 cd packages/qtili-web
-cp .env.template .env
-pnpm install
+cp .env.template .env # only first time, fill created file with relevant variables
+pnpm install # only first time or after dependencies updates
 pnpm dev
 ```
 
@@ -17,12 +19,14 @@ pnpm dev
 
 ```bash
 cd packages/qtili-admin
-cp .env.template .env
-pnpm install
+cp .env.template .env # only first time, fill created file with relevant variables
+pnpm install # only first time or after dependencies updates
 pnpm dev
 ```
 
 ### Emulators (local development, backend)
+
+> In case you want to run local firebase emulators instead of connecting to cloud firebase project.
 
 Install Firebase CLI - https://firebase.google.com/docs/cli#install-cli-mac-linux
 
@@ -30,7 +34,7 @@ Install Firebase CLI - https://firebase.google.com/docs/cli#install-cli-mac-linu
 pnpm emulators
 ```
 
-## Commands
+## Firebase Cheatsheet
 
 * `firebase install` - setup firebase-tools
 * `firebase login` - login into firebase account
@@ -49,7 +53,7 @@ pnpm emulators
 * `firebase functions:log` - functions log
 
 
-## Storage cors (gcloud)
+## How to set up storage cors (gcloud)
 
 ```bash
 gcloud auth login # auth
