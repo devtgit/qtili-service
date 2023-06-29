@@ -27,18 +27,12 @@ export const AnswerChoices = (props: { questionId: string }) => {
               setAnswer(questionId, choice.id);
 
               audio.pause();
-              audio.currentTime = 0;
 
               const src = await getSound(choice.text);
-              console.log("src", src);
 
-              // const src = `/sound/${choice.snd}.mp3`;
-              if (audio.src !== src) {
-                audio.src = src;
-              }
+              audio.src = src;
+              audio.currentTime = 0.16;
               audio.play();
-
-              // new Audio(`/sound/${choice.snd}.mp3`).play()
             }}
           />
         );
