@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import { css } from '@emotion/css'
-import { useTheme } from '@emotion/react'
+import React from "react";
+import styled from "@emotion/styled";
+import { css } from "@emotion/css";
+import { useTheme } from "@emotion/react";
 
 export const ChoicesList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   text-align: center;
-`
+`;
 
 export const ChoiceItem = ({
   text,
@@ -17,12 +17,12 @@ export const ChoiceItem = ({
   isSubmitted,
   ...rest
 }: {
-  text: string
-  isSelected: boolean
-  isSubmitted: boolean
-  pic: string | undefined
-} & JSX.IntrinsicElements['button']) => {
-  const theme = useTheme()
+  text: string;
+  isSelected: boolean;
+  isSubmitted: boolean;
+  pic: string | undefined;
+} & JSX.IntrinsicElements["button"]) => {
+  const theme = useTheme();
 
   return (
     <button
@@ -63,5 +63,5 @@ export const ChoiceItem = ({
         {text}
       </div>
     </button>
-  )
-}
+  );
+};

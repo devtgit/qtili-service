@@ -1,16 +1,16 @@
-import React from 'react'
-import { css } from '@emotion/css'
-import { motion } from 'framer-motion'
-import { useTheme } from '@emotion/react'
+import React from "react";
+import { css } from "@emotion/css";
+import { motion } from "framer-motion";
+import { useTheme } from "@emotion/react";
 
 const FeedbackSlider = (props: {
-  isQuestion: boolean
-  isSubmitted: boolean
-  isCorrect: boolean
-  correctFeedbackTitle: string
-  correctFeedbackText: string
-  incorrectFeedbackTitle: string
-  incorrectFeedbackText: string
+  isQuestion: boolean;
+  isSubmitted: boolean;
+  isCorrect: boolean;
+  correctFeedbackTitle: string;
+  correctFeedbackText: string;
+  incorrectFeedbackTitle: string;
+  incorrectFeedbackText: string;
 }) => {
   const {
     isQuestion,
@@ -20,9 +20,9 @@ const FeedbackSlider = (props: {
     correctFeedbackText,
     incorrectFeedbackTitle,
     incorrectFeedbackText,
-  } = props
+  } = props;
 
-  const theme = useTheme()
+  const theme = useTheme();
 
   return (
     <motion.div
@@ -32,16 +32,16 @@ const FeedbackSlider = (props: {
         bottom: 0;
         left: 0;
         padding: 15px 15px 80px 15px;
-        background: ${theme.palette.mode === 'dark'
-          ? 'rgba(0, 0, 0, 0.2)'
-          : 'rgba(180, 180, 180, 0.09)'};
+        background: ${theme.palette.mode === "dark"
+          ? "rgba(0, 0, 0, 0.2)"
+          : "rgba(180, 180, 180, 0.09)"};
         color: ${isCorrect
           ? theme.palette.success.main
           : theme.palette.error.main};
       `}
       initial={false}
-      transition={{ type: 'tween', duration: 0.2 }}
-      animate={{ y: isQuestion && isSubmitted ? '0%' : '110%' }}
+      transition={{ type: "tween", duration: 0.2 }}
+      animate={{ y: isQuestion && isSubmitted ? "0%" : "110%" }}
     >
       {isQuestion && isSubmitted && (
         <div>
@@ -56,7 +56,7 @@ const FeedbackSlider = (props: {
         </div>
       )}
     </motion.div>
-  )
-}
+  );
+};
 
-export default FeedbackSlider
+export default FeedbackSlider;

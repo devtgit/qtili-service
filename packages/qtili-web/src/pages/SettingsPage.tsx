@@ -1,17 +1,17 @@
-import React from 'react'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import { css } from '@emotion/css'
-import { useTranslation } from 'react-i18next'
-import { PageLayout } from '@/pages/PageLayout'
-import { AppBarTitlePortal } from '@/containers/AppTopBar'
+import React from "react";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { css } from "@emotion/css";
+import { useTranslation } from "react-i18next";
+import { PageLayout } from "@/pages/PageLayout";
+import { AppBarTitlePortal } from "@/containers/AppTopBar";
 
 export const SettingsPage = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <PageLayout>
-      <AppBarTitlePortal>{t('settings_page')}</AppBarTitlePortal>
+      <AppBarTitlePortal>{t("settings_page")}</AppBarTitlePortal>
       <div
         className={css`
           display: flex;
@@ -22,5 +22,5 @@ export const SettingsPage = () => {
         <Button>Пройти тест</Button>
       </div>
     </PageLayout>
-  )
-}
+  );
+};

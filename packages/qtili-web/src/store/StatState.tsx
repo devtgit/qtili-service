@@ -1,5 +1,5 @@
-import { atomWithStorage } from 'jotai/utils'
+import { atomWithStorage } from "jotai/utils";
 
 export const StatState = new (class {
-  lessonsCount = atomWithStorage('lessonsCount', 0)
-})()
+  lessonsCount = atomWithStorage("lessonsCount", 0);
+})();

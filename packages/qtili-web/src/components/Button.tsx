@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from '@emotion/styled'
+import React from "react";
+import styled from "@emotion/styled";
 
 export const Button = styled.button`
   border-radius: 8px;
@@ -23,4 +23,4 @@ export const Button = styled.button`
   &:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
   }
-`
+`;

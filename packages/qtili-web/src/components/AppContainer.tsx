@@ -1,11 +1,11 @@
-import React from 'react'
-import { css } from '@emotion/css'
-import { useTheme } from '@emotion/react'
-import { use100vh } from 'react-div-100vh'
+import React from "react";
+import { css } from "@emotion/css";
+import { useTheme } from "@emotion/react";
+import { use100vh } from "react-div-100vh";
 
 export const AppContainer = ({ children }: { children: React.ReactNode }) => {
-  const theme = useTheme()
-  const height = use100vh() || window.innerHeight
+  const theme = useTheme();
+  const height = use100vh() || window.innerHeight;
 
   return (
     <div
@@ -31,5 +31,5 @@ export const AppContainer = ({ children }: { children: React.ReactNode }) => {
     >
       {children}
     </div>
-  )
-}
+  );
+};

@@ -1,17 +1,17 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import { motion } from 'framer-motion'
-import { AppTheme } from '@/theme/theme'
+import React from "react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
+import { AppTheme } from "@/theme/theme";
 
 type Props = {
-  isQuestion: boolean
-  isAnswered: boolean
-  isSubmitted: boolean
-  isCorrect: boolean
-} & Parameters<typeof motion.button>[0]
+  isQuestion: boolean;
+  isAnswered: boolean;
+  isSubmitted: boolean;
+  isCorrect: boolean;
+} & Parameters<typeof motion.button>[0];
 
 export const AnswerButtonMotion = (props: Props) => {
-  const { disabled } = props
+  const { disabled } = props;
 
   return (
     <motion.button
@@ -20,8 +20,8 @@ export const AnswerButtonMotion = (props: Props) => {
         scale: disabled ? 1 : 0.93,
       }}
     />
-  )
-}
+  );
+};
 
 export const AnswerButtonComponent = styled(AnswerButtonMotion)`
   border-radius: 8px;
@@ -61,24 +61,24 @@ export const AnswerButtonComponent = styled(AnswerButtonMotion)`
     color: ${(props) => props.theme.palette.text.disabled};
     cursor: default;
   }
-`
+`;
 
 function backgroundColor(props: Props & { theme: AppTheme }) {
   if (!props.isQuestion) {
-    return props.theme.palette.info.main
+    return props.theme.palette.info.main;
   }
 
   if (!props.isSubmitted) {
     if (props.isAnswered) {
-      return props.theme.palette.success.main
+      return props.theme.palette.success.main;
     } else {
-      return 'rgba(0,0,0,0.2)'
+      return "rgba(0,0,0,0.2)";
     }
   } else {
     if (props.isCorrect) {
-      return props.theme.palette.success.main
+      return props.theme.palette.success.main;
     } else {
-      return props.theme.palette.error.main
+      return props.theme.palette.error.main;
     }
   }
 }

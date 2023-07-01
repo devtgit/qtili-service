@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import { css } from '@emotion/css'
-import { AnimatePresence, motion } from 'framer-motion'
+import React, { useState } from "react";
+import { css } from "@emotion/css";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const LessonSlider = ({
   id,
   children,
 }: {
-  id: string
-  children: React.ReactNode
+  id: string;
+  children: React.ReactNode;
 }) => {
   const [variants] = useState(() => ({
     initial: {
-      x: '100%',
+      x: "100%",
       opacity: 0.6,
     },
     animate: {
@@ -21,10 +21,10 @@ export const LessonSlider = ({
     },
     exit: {
       zIndex: 0,
-      x: '-50%',
+      x: "-50%",
       opacity: 0,
     },
-  }))
+  }));
 
   return (
     <div
@@ -42,7 +42,7 @@ export const LessonSlider = ({
           variants={variants}
           {...variants}
           transition={{
-            x: { type: 'spring', stiffness: 300, damping: 30 },
+            x: { type: "spring", stiffness: 300, damping: 30 },
             opacity: { duration: 0.2 },
           }}
           className={css`
@@ -59,5 +59,5 @@ export const LessonSlider = ({
         </motion.div>
       </AnimatePresence>
     </div>
-  )
-}
+  );
+};

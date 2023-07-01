@@ -1,9 +1,9 @@
-import React from 'react'
-import Typography from '@mui/material/Typography'
-import { css } from '@emotion/css'
+import React from "react";
+import Typography from "@mui/material/Typography";
+import { css } from "@emotion/css";
 
 export const ResultComponent = (props: { text: string; score: number }) => {
-  const { text, score } = props
+  const { text, score } = props;
 
   return (
     <div
@@ -18,5 +18,5 @@ export const ResultComponent = (props: { text: string; score: number }) => {
       <Typography variant="h4">{text}:</Typography>
       <Typography variant="h2">{score}</Typography>
     </div>
-  )
-}
+  );
+};

@@ -1,10 +1,10 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { css } from '@emotion/css'
-import { useTheme } from '@mui/material'
+import React from "react";
+import { motion } from "framer-motion";
+import { css } from "@emotion/css";
+import { useTheme } from "@mui/material";
 
 export const ProgressBar = ({ progress }: { progress: number }) => {
-  const theme = useTheme()
+  const theme = useTheme();
 
   return (
     <div
@@ -24,5 +24,5 @@ export const ProgressBar = ({ progress }: { progress: number }) => {
         animate={{ scaleX: progress }}
       />
     </div>
-  )
-}
+  );
+};
