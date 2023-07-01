@@ -7,10 +7,11 @@ import {
   query,
   where,
 } from "firebase/firestore/lite";
-import { Choice, Lesson, Question, Word } from "@/types";
+import { Answer, Lesson, makeAnswer, Question, Word } from "@/db/types";
 import { db, storage } from "@/firebase/config";
 import { getFirstDocumentData } from "@/api/utils";
 import { getBlob, ref } from "firebase/storage";
+import { Choice, ChoiceType } from "@/db/questions/ChoiceQuestion";
 
 const choicesCount = 4;
 
@@ -51,6 +52,7 @@ export const getLesson = async () => {
   }
 
   const questions: Question[] = [];
+  const answers: Answer[] = [];
 
   for (let wordIndex = 0; wordIndex < allWords.length; wordIndex++) {
     const word = allWords[wordIndex];
@@ -73,13 +75,16 @@ export const getLesson = async () => {
     choices.sort(randomCompare); // random sort
 
     // fill question
+    const id = nanoid();
     questions.push({
-      id: nanoid(),
+      id,
+      type: ChoiceType,
       word: wordsDict[wordId].tr,
       correctChoiceId: correctChoice.id,
       correctChoiceText: correctChoice.text,
       choices,
     });
+    answers.push(makeAnswer(ChoiceType, id));
   }
 
   questions.sort(randomCompare); // random sort
@@ -87,6 +92,7 @@ export const getLesson = async () => {
   return {
     questionsOrdering: questions.map((x) => x.id),
     questionsRecord: Object.fromEntries(questions.map((x) => [x.id, x])),
+    answersRecord: Object.fromEntries(answers.map((x) => [x.id, x])),
   };
 };
 
