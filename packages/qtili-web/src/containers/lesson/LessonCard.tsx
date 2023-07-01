@@ -1,9 +1,9 @@
 import React from "react";
-import { ResultCard } from "@/containers/ResultCard";
-import { QuestionCard } from "@/containers/QuestionCard";
+import { ResultCard } from "@/containers/lesson/cards/ResultCard";
+import { QuestionCard } from "@/containers/lesson/cards/QuestionCard";
 import { LessonPageType } from "@/db/types";
 
-export const LessonRouting = (props: {
+export const LessonCard = (props: {
   lessonPageType: LessonPageType;
   questionId: string;
 }) => {

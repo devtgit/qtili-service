@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { ToggleThemeButton } from "@/containers/ToggleThemeButton";
+import { ToggleThemeButton } from "@/containers/layout/ToggleThemeButton";
 
 const titleId = "app-bar-title";
 

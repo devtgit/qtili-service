@@ -13,15 +13,15 @@ import {
 } from "@tanstack/react-location";
 import CssBaseline from "@mui/material/CssBaseline";
 import { AppThemeProvider } from "@/theme/theme";
-import { LessonPage } from "@/containers/LessonPage";
+import { LessonMain } from "@/containers/lesson/LessonMain";
 import { SchoolPage } from "@/pages/SchoolPage";
 import { AppContainer } from "@/components/AppContainer";
-import { AppBottomNavigation } from "@/containers/AppBottomNavigation";
+import { AppBottomNavigation } from "@/containers/layout/AppBottomNavigation";
 import { SettingsPage } from "@/pages/SettingsPage";
 import { StatPage } from "@/pages/StatPage";
-import { AppTopBar } from "@/containers/AppTopBar";
+import { AppTopBar } from "@/containers/layout/AppTopBar";
 import { UIState } from "@/store/UIState";
-import { LessonLoading } from "@/containers/LessonLoading";
+import { LessonLoading } from "@/containers/lesson/LessonLoading";
 
 const location = new ReactLocation();
 
@@ -48,7 +48,7 @@ const App = () => {
         )}
         {lessonMode && (
           <Suspense fallback={<LessonLoading />}>
-            <LessonPage />
+            <LessonMain />
           </Suspense>
         )}
       </AppContainer>

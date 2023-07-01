@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { css } from "@emotion/css";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/pages/PageLayout";
-import { AppBarTitlePortal } from "@/containers/AppTopBar";
+import { AppBarTitlePortal } from "@/containers/layout/AppTopBar";
 import { Actions } from "@/store/Actions";
 
 export const SchoolPage = () => {

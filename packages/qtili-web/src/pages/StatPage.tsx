@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import { useAtomValue } from "jotai";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/pages/PageLayout";
-import { AppBarTitlePortal } from "@/containers/AppTopBar";
+import { AppBarTitlePortal } from "@/containers/layout/AppTopBar";
 import { StatState } from "@/store/StatState";
 
 export const StatPage = () => {

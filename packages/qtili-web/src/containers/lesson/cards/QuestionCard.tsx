@@ -2,7 +2,7 @@ import React from "react";
 import { useAtomValue } from "jotai";
 import { useTranslation } from "react-i18next";
 import { State } from "@/store/State";
-import { AnswerChoices } from "@/containers/AnswerChoices";
+import { AnswerChoices } from "@/containers/lesson/cards/AnswerChoices";
 import { ChoiceType } from "@/db/questions/ChoiceQuestion";
 
 const QuestionCardComponent = (props: { questionId: string }) => {

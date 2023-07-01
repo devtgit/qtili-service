@@ -5,16 +5,16 @@ import { Actions } from "@/store/Actions";
 import { AppContainer } from "@/components/AppContainer";
 import { ProgressBar } from "@/components/ProgressBar";
 import { LessonSlider } from "@/components/LessonSlider";
-import { QuestionCard } from "@/containers/QuestionCard";
-import { DebuggerJson } from "@/containers/DebuggerJson";
-import { AnswerFeedback } from "@/containers/AnswerFeedback";
+import { QuestionCard } from "@/containers/lesson/cards/QuestionCard";
+import { DebuggerJson } from "@/containers/debug/DebuggerJson";
+import { AnswerFeedback } from "@/containers/lesson/answer/AnswerFeedback";
 import { Button } from "@/components/Button";
-import { ExitLessonButton } from "@/containers/ExitLessonButton";
+import { ExitLessonButton } from "@/containers/lesson/ExitLessonButton";
 import { css } from "@emotion/css";
-import { LessonRouting } from "@/containers/LessonRouting";
-import { AnswerButton } from "@/containers/AnswerButton";
+import { LessonCard } from "@/containers/lesson/LessonCard";
+import { AnswerButton } from "@/containers/lesson/answer/AnswerButton";
 
-export const LessonPage = () => {
+export const LessonMain = () => {
   const initialized = useAtomValue(State.initialized);
   const lessonPageType = useAtomValue(State.lessonPageType);
   const count = useAtomValue(State.questionsCount);
@@ -31,10 +31,7 @@ export const LessonPage = () => {
       <ExitLessonButton />
       <ProgressBar progress={(submittedCount + 1) / (count + 1)} />
       <LessonSlider id={`${lessonPageType.type}_${questionId}`}>
-        <LessonRouting
-          lessonPageType={lessonPageType}
-          questionId={questionId}
-        />
+        <LessonCard lessonPageType={lessonPageType} questionId={questionId} />
       </LessonSlider>
 
       <AnswerButton />
