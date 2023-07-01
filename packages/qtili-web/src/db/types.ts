@@ -1,12 +1,12 @@
 import {
   ChoiceAnswer,
   ChoiceQuestion,
-  SetChoiceAnswerOptions,
+  SetChoiceAnswerPayload,
 } from "@/db/questions/ChoiceQuestion";
 import {
   ComposeAnswer,
   ComposeQuestion,
-  SetComposeAnswerOptions,
+  SetComposeAnswerPayload,
 } from "@/db/questions/ComposeQuestion";
 
 type QuestionPageType = {
@@ -38,7 +38,7 @@ export type Word = {
 export type Question = ChoiceQuestion | ComposeQuestion;
 export type Answer = ChoiceAnswer | ComposeAnswer;
 export type QuestionType = Question["type"] & Answer["type"];
-export type SetAnswerOptions = SetChoiceAnswerOptions | SetComposeAnswerOptions;
+export type SetAnswerPayload = SetChoiceAnswerPayload | SetComposeAnswerPayload;
 
 export function makeAnswer(questionType: QuestionType, id: string): Answer {
   switch (questionType) {
@@ -46,18 +46,6 @@ export function makeAnswer(questionType: QuestionType, id: string): Answer {
       return ComposeQuestion.makeAnswer(id);
     case "Choice":
       return ChoiceQuestion.makeAnswer(id);
-  }
-}
-
-export function setAnswer<Options extends SetAnswerOptions>(
-  answer: Answer,
-  options: Options
-) {
-  switch (answer.type) {
-    case "Compose":
-      return ComposeQuestion.setAnswer(answer, options);
-    case "Choice":
-      return ChoiceQuestion.setAnswer(answer, options);
   }
 }
 

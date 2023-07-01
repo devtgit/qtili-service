@@ -5,7 +5,9 @@ import { State } from "@/store/State";
 import { UIState } from "@/store/UIState";
 import { StatState } from "@/store/StatState";
 import { getLesson } from "@/api";
-import { setAnswer, SetAnswerOptions, submitAnswer } from "@/db/types";
+import { SetAnswerPayload, submitAnswer } from "@/db/types";
+import { ChoiceQuestion } from "@/db/questions/ChoiceQuestion";
+import { ComposeQuestion } from "@/db/questions/ComposeQuestion";
 
 export const Actions = new (class {
   useStartLesson = () =>
@@ -64,14 +66,26 @@ export const Actions = new (class {
       }, [])
     );
 
-  useSetAnswer = <Options extends SetAnswerOptions>() =>
+  useSetAnswer = () =>
     useAtomCallback(
-      useCallback((get, set, questionId: string, options: Options) => {
+      useCallback((get, set, questionId: string, payload: SetAnswerPayload) => {
         set(
           State.answers,
           produce((draft) => {
             const answer = draft[questionId];
-            setAnswer<Options>(answer, options);
+            if (
+              ChoiceQuestion.isAnswer(answer) &&
+              ChoiceQuestion.isSetAnswerPayload(payload)
+            ) {
+              return ChoiceQuestion.setAnswer(answer, payload);
+            }
+
+            if (
+              ComposeQuestion.isAnswer(answer) &&
+              ComposeQuestion.isSetAnswerPayload(payload)
+            ) {
+              return ComposeQuestion.setAnswer(answer, payload);
+            }
           })
         );
       }, [])

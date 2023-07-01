@@ -95,11 +95,16 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
 
     if (over != null) {
       if (!isSortable(active.data.current) && isSortable(over.data.current)) {
-        setAnswer(questionId, { type: "MOVE_TO_RESULT", activeId: activeId });
+        setAnswer(questionId, {
+          questionType: ComposeType,
+          type: "MOVE_TO_RESULT",
+          activeId: activeId,
+        });
       }
 
       if (isSortable(active.data.current) && isSortable(over.data.current)) {
         setAnswer(questionId, {
+          questionType: ComposeType,
           type: "REORDER_ITEMS",
           activeIndex: active.data.current.sortable.index,
           overIndex: over.data.current.sortable.index,
@@ -117,6 +122,7 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
       if (isSortable(active.data.current)) {
         if (!itemWasMovedRef.current) {
           setAnswer(questionId, {
+            questionType: ComposeType,
             type: "MOVE_TO_CHOICE",
             activeIndex: active.data.current.sortable.index,
           });
@@ -125,6 +131,7 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
             // REORDER_ITEMS handled in drag over
           } else {
             setAnswer(questionId, {
+              questionType: ComposeType,
               type: "MOVE_TO_CHOICE",
               activeIndex: active.data.current.sortable.index,
             });
@@ -133,6 +140,7 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
       } else {
         if (!itemWasMovedRef.current) {
           setAnswer(questionId, {
+            questionType: ComposeType,
             type: "MOVE_TO_RESULT",
             activeId: activeId,
           });
@@ -142,6 +150,7 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
           } else {
             if (over.id === "result-droppable") {
               setAnswer(questionId, {
+                questionType: ComposeType,
                 type: "MOVE_TO_RESULT",
                 activeId: activeId,
               });

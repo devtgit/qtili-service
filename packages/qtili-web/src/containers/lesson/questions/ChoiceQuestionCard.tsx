@@ -44,7 +44,11 @@ const AnswerChoices = (props: { question: ChoiceQuestion }) => {
               isSelected={answer.selectedId === choice.id}
               isSubmitted={answer.isSubmitted}
               onClick={async () => {
-                setAnswer(questionId, { choiceId: choice.id });
+                setAnswer(questionId, {
+                  questionType: ChoiceType,
+                  type: "SET_ANSWER",
+                  choiceId: choice.id,
+                });
 
                 audio.pause();
 

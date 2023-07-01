@@ -1,6 +1,6 @@
 import isEqual from "lodash/isEqual";
 import { BaseAnswer, BaseQuestion } from "@/db/base";
-import { Word } from "@/db/types";
+import { Answer, SetAnswerPayload, Word } from "@/db/types";
 
 export type ComposeType = "Compose";
 export const ComposeType: ComposeType = "Compose";
@@ -18,7 +18,9 @@ export type ComposeAnswer = BaseAnswer & {
   result: string[];
 };
 
-export type SetComposeAnswerOptions =
+export type SetComposeAnswerPayload = {
+  questionType: ComposeType;
+} & (
   | { type: "MOVE_TO_RESULT"; activeId: string }
   | {
       type: "REORDER_ITEMS";
@@ -28,9 +30,18 @@ export type SetComposeAnswerOptions =
   | {
       type: "MOVE_TO_CHOICE";
       activeIndex: number;
-    };
+    }
+);
 
 export const ComposeQuestion = {
+  isAnswer(answer: Answer): answer is ComposeAnswer {
+    return answer.type === ComposeType;
+  },
+  isSetAnswerPayload(
+    payload: SetAnswerPayload
+  ): payload is SetComposeAnswerPayload {
+    return payload.questionType === ComposeType;
+  },
   makeAnswer(id: string): ComposeAnswer {
     return {
       id,
@@ -40,11 +51,11 @@ export const ComposeQuestion = {
       result: [],
     };
   },
-  setAnswer(answer: ComposeAnswer, action: SetComposeAnswerOptions): void {
+  setAnswer(answer: ComposeAnswer, action: SetComposeAnswerPayload): void {
     if (action.type === "MOVE_TO_RESULT") {
       const { activeId } = action;
 
-      if (answer.result.indexOf(activeId) == -1) {
+      if (answer.result.indexOf(activeId) === -1) {
         answer.result.push(activeId);
       }
 
