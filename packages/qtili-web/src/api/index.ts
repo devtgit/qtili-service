@@ -12,6 +12,7 @@ import { db, storage } from "@/firebase/config";
 import { getFirstDocumentData } from "@/api/utils";
 import { getBlob, ref } from "firebase/storage";
 import { Choice, ChoiceType } from "@/db/questions/ChoiceQuestion";
+import { ComposeType } from "@/db/questions/ComposeQuestion";
 
 const choicesCount = 4;
 
@@ -88,6 +89,33 @@ export const getLesson = async () => {
   }
 
   questions.sort(randomCompare); // random sort
+
+  const id = nanoid();
+  questions.unshift({
+    id,
+    type: ComposeType,
+    phrase: "Как дела?",
+    correctWordsOrdering: ["1", "2"],
+    initialWordsOrdering: ["2", "1"],
+    words: {
+      1: {
+        id: "1",
+        wd: "Қалыңыз",
+        tr: "",
+        pic: "",
+        snd: "",
+      },
+      2: {
+        id: "2",
+        wd: "қалай?",
+        tr: "",
+        pic: "",
+        snd: "",
+      },
+    },
+    correctChoiceText: "",
+  });
+  answers.unshift(makeAnswer(ComposeType, id));
 
   return {
     questionsOrdering: questions.map((x) => x.id),

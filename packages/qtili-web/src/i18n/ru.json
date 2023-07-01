@@ -1,5 +1,6 @@
 {
   "translate": "Как переводится \"{{word}}\"",
+  "translate_phrase": "Переведите предложение",
   "submit_answer": "Проверить",
   "next_question": "Далее",
   "correct_feedback_title": "Правильно",

@@ -1,14 +1,14 @@
 import React from "react";
 import { useAtomValue } from "jotai";
-import { useTranslation } from "react-i18next";
 import { State } from "@/store/State";
-import { AnswerChoices } from "@/containers/lesson/cards/AnswerChoices";
 import { ChoiceType } from "@/db/questions/ChoiceQuestion";
+import { ComposeType } from "@/db/questions/ComposeQuestion";
+import { ChoiceQuestionCard } from "@/containers/lesson/questions/ChoiceQuestionCard";
+import { ComposeQuestionCard } from "@/containers/lesson/questions/ComposeQuestionCard";
 
 const QuestionCardComponent = (props: { questionId: string }) => {
   const { questionId } = props;
   const question = useAtomValue(State.questionAtomFamily(questionId));
-  const { t } = useTranslation();
 
   if (!question) {
     // handle reset case
@@ -16,16 +16,11 @@ const QuestionCardComponent = (props: { questionId: string }) => {
   }
 
   if (question.type === ChoiceType) {
-    return (
-      <div>
-        <h3>
-          {t("translate", {
-            word: question.word,
-          })}
-        </h3>
-        <AnswerChoices questionId={questionId} />
-      </div>
-    );
+    return <ChoiceQuestionCard question={question} />;
+  }
+
+  if (question.type === ComposeType) {
+    return <ComposeQuestionCard question={question} />;
   }
 
   return null;

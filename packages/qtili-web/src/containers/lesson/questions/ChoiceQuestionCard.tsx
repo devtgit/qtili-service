@@ -1,20 +1,38 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useAtomValue } from "jotai";
+import { ChoiceQuestion, ChoiceType } from "@/db/questions/ChoiceQuestion";
 import { State } from "@/store/State";
 import { Actions } from "@/store/Actions";
 import { ChoiceItem, ChoicesList } from "@/components/ChoicesList";
 import { getSound } from "@/api";
-import { ChoiceType } from "@/db/questions/ChoiceQuestion";
 
 const audio = new Audio();
 
-export const AnswerChoices = (props: { questionId: string }) => {
-  const { questionId } = props;
-  const question = useAtomValue(State.questionAtomFamily(questionId));
+export const ChoiceQuestionCard = (props: { question: ChoiceQuestion }) => {
+  const { question } = props;
+
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <h3>
+        {t("translate", {
+          word: question.word,
+        })}
+      </h3>
+      <AnswerChoices question={question} />
+    </div>
+  );
+};
+
+const AnswerChoices = (props: { question: ChoiceQuestion }) => {
+  const { question } = props;
+  const questionId = question.id;
   const answer = useAtomValue(State.answerAtomFamily(questionId));
   const setAnswer = Actions.useSetAnswer();
 
-  if (question.type === ChoiceType && answer.type === ChoiceType) {
+  if (answer.type === ChoiceType) {
     return (
       <ChoicesList>
         {question.choices.map((choice) => {
