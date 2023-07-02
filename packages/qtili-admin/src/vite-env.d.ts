@@ -5,7 +5,7 @@ interface ImportMetaEnv {
   VITE_FIREBASE_CONFIG_JSON: string;
 
   // local
-  VITE_FUNCTIONS_EMULATOR_ENDPOINT?: string;
+  VITE_FUNCTIONS_ENDPOINT?: string;
   VITE_FIRESTORE_EMULATOR_HOST?: string;
   VITE_AUTH_EMULATOR_HOST?: string;
   VITE_DATABASE_EMULATOR_HOST?: string;

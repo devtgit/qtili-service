@@ -25,6 +25,7 @@ export type Lesson = {
   title: string;
   word_ids: string[];
   words: string;
+  phrases: string;
 };
 
 export type Word = {

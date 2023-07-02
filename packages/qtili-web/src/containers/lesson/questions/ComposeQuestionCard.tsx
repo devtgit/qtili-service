@@ -28,8 +28,11 @@ import Chip from "@mui/material/Chip";
 import { ComposeQuestion, ComposeType } from "@/db/questions/ComposeQuestion";
 import { State } from "@/store/State";
 import { Actions } from "@/store/Actions";
+import { getSound } from "@/api";
 
 enableMapSet();
+
+const audio = new Audio();
 
 export const ComposeQuestionCard = (props: { question: ComposeQuestion }) => {
   const { question } = props;
@@ -84,6 +87,16 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
 
     const activeId = active.id;
     setActiveId(activeId);
+
+    Promise.resolve().then(async () => {
+      audio.pause();
+
+      const src = await getSound(question.words[activeId].wd);
+
+      audio.src = src;
+      audio.currentTime = 0.16;
+      audio.play();
+    });
   };
 
   const handleDragMove = (_: DragMoveEvent) => {

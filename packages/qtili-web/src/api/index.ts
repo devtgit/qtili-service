@@ -3,13 +3,13 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
   limit,
   query,
   where,
 } from "firebase/firestore/lite";
 import { Answer, Lesson, makeAnswer, Question, Word } from "@/db/types";
 import { db, storage } from "@/firebase/config";
-import { getFirstDocumentData } from "@/api/utils";
 import { getBlob, ref } from "firebase/storage";
 import { Choice, ChoiceType } from "@/db/questions/ChoiceQuestion";
 import { ComposeType } from "@/db/questions/ComposeQuestion";
@@ -23,27 +23,37 @@ export const getLesson = async () => {
   // set minimum timeout for downloading
   const delayPromise = new Promise((r) => setTimeout(r, 1300)).then();
 
-  // load words
-  const allWords = (await Promise.all(
-    lesson.words
-      .split(/\r?\n/)
-      .map((word) =>
-        getFirstDocumentData(
-          query(collection(db, `dict_kz_ru`), where("wd", "==", word), limit(1))
-        )
-      )
-  )) as Word[];
-  const wordsDict = Object.fromEntries(allWords.map((x) => [x.id, x]));
-  allWords.sort((a, b) => a.wd.localeCompare(b.wd));
+  // TODO: mb use csv parser
+  const choiceWds = lesson.words.split(/\r?\n/).slice(3);
+  const composeWords = lesson.phrases
+    .split(/\r?\n/)
+    .flatMap((row) => row.split(", ")[0].split(" "));
+  const words = [...choiceWds, ...composeWords];
 
-  await Promise.all(allWords.map((word) => getSound(word.wd)));
+  const wordsByWd: Record<string, Word> = {};
+  const wordsById: Record<string, Word> = {};
+  // load words
+  await Promise.all(
+    words.map(async (word) => {
+      const snapshot = await getDocs(
+        query(collection(db, `dict_kz_ru`), where("wd", "==", word), limit(1))
+      );
+      if (!snapshot.empty) {
+        const word = snapshot.docs[0].data() as Word;
+        wordsByWd[word.wd] = word;
+        wordsById[word.id] = word;
+      }
+    })
+  );
+
+  await Promise.all(words.map((word) => getSound(word)));
 
   await delayPromise;
 
-  function makeChoice(wordId: string): Choice {
+  function makeChoice(wordWd: string): Choice {
     // get choice by id from dict
     // we need dict because creating choices is not one loop operation
-    const word = wordsDict[wordId]!;
+    const word = wordsByWd[wordWd]!;
     return {
       id: nanoid(),
       text: word.wd,
@@ -55,23 +65,25 @@ export const getLesson = async () => {
   const questions: Question[] = [];
   const answers: Answer[] = [];
 
-  for (let wordIndex = 0; wordIndex < allWords.length; wordIndex++) {
-    const word = allWords[wordIndex];
+  for (let wordIndex = 0; wordIndex < choiceWds.length; wordIndex++) {
+    const wordWd = choiceWds[wordIndex];
+    const word = wordsByWd[wordWd];
     const wordId = word.id;
 
     // fill choices
-    const correctChoice = makeChoice(wordId);
+    const correctChoice = makeChoice(wordWd);
     const choices: Choice[] = [correctChoice];
-    const questionWords = Array.from(allWords);
-    questionWords.splice(wordIndex, 1);
+    const questionWds = Array.from(choiceWds); // clone array
+    questionWds.splice(wordIndex, 1);
 
     for (const _ of new Array(choicesCount - 1).fill(1)) {
-      const wordIndex = rand(questionWords.length - 1);
-      const word = questionWords[wordIndex];
+      const wordIndex = rand(questionWds.length - 1);
+      const wordWd = choiceWds[wordIndex];
+      const word = wordsByWd[wordWd];
       const wordId = word.id;
 
-      choices.push(makeChoice(wordId));
-      questionWords.splice(wordIndex, 1);
+      choices.push(makeChoice(wordWd));
+      questionWds.splice(wordIndex, 1);
     }
     choices.sort(randomCompare); // random sort
 
@@ -80,7 +92,7 @@ export const getLesson = async () => {
     questions.push({
       id,
       type: ChoiceType,
-      word: wordsDict[wordId].tr,
+      word: wordsByWd[wordWd].tr,
       correctChoiceId: correctChoice.id,
       correctChoiceText: correctChoice.text,
       choices,
@@ -88,34 +100,28 @@ export const getLesson = async () => {
     answers.push(makeAnswer(ChoiceType, id));
   }
 
-  questions.sort(randomCompare); // random sort
+  for (const row of lesson.phrases.split(/\r?\n/)) {
+    const [phraseWd, phraseTr] = row.split(", ");
+    const wds = phraseWd.split(" ");
 
-  const id = nanoid();
-  questions.unshift({
-    id,
-    type: ComposeType,
-    phrase: "Как дела?",
-    correctWordsOrdering: ["1", "2"],
-    initialWordsOrdering: ["2", "1"],
-    words: {
-      1: {
-        id: "1",
-        wd: "Қалыңыз",
-        tr: "",
-        pic: "",
-        snd: "",
-      },
-      2: {
-        id: "2",
-        wd: "қалай?",
-        tr: "",
-        pic: "",
-        snd: "",
-      },
-    },
-    correctChoiceText: "Қалыңыз қалай?",
-  });
-  answers.unshift(makeAnswer(ComposeType, id));
+    const correctWordsOrdering = wds.map((wd) => wordsByWd[wd].id);
+    const initialWords = wds.map((wd) => wordsByWd[wd]).sort(randomCompare);
+    const initialWordsOrdering = initialWords.map((word) => word.id);
+
+    const id = nanoid();
+    questions.unshift({
+      id,
+      type: ComposeType,
+      phrase: phraseTr,
+      correctWordsOrdering,
+      initialWordsOrdering: initialWordsOrdering,
+      words: wordsById, // TODO: mb localize wordsByWd or vice versa extract wordsByWd to lesson level?
+      correctChoiceText: phraseWd,
+    });
+    answers.unshift(makeAnswer(ComposeType, id));
+  }
+
+  questions.sort(randomCompare); // random sort
 
   return {
     questionsOrdering: questions.map((x) => x.id),

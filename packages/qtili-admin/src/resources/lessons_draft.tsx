@@ -42,10 +42,23 @@ const validateUserCreation = (values: any) => {
 export const ResourceList = (props: ListProps) => {
   return (
     <List {...props}>
-      <Datagrid>
+      <Datagrid
+        rowStyle={(_, index) => ({
+          verticalAlign: "top",
+        })}
+      >
         <EditButton />
         <TextField source="title" label="Title" />
-        <TextField source="words" label="Words" />
+        <TextField
+          sx={{ wordBreak: "break-word" }}
+          source="words"
+          label="Words"
+        />
+        <TextField
+          sx={{ whiteSpace: "pre" }}
+          source="phrases"
+          label="Phrases"
+        />
       </Datagrid>
     </List>
   );
@@ -66,8 +79,15 @@ export const ResourceCreate = (props: CreateProps) => {
       }
     >
       <SimpleForm validate={validateUserCreation} toolbar={<CreateToolbar />}>
-        <TextInput source="title" label="Title" required />
-        <TextInput source="words" label="Words" multiline required />
+        <TextInput source="title" label="Title" required fullWidth />
+        <TextInput source="words" label="Words" multiline required fullWidth />
+        <TextInput
+          source="phrases"
+          label="Phrases"
+          multiline
+          required
+          fullWidth
+        />
       </SimpleForm>
     </Create>
   );
@@ -94,7 +114,7 @@ export const ResourceEdit = (props: EditProps) => {
               label="Generate"
               onClick={async () => {
                 const res = await axios.post(
-                  "https://app-j5j64oe2pa-uc.a.run.app/generate",
+                  import.meta.env.VITE_FUNCTIONS_ENDPOINT + "/generate",
                   {
                     lessonId,
                   }
@@ -107,7 +127,14 @@ export const ResourceEdit = (props: EditProps) => {
         }
       >
         <TextInput source="title" label="Title" />
-        <TextInput source="words" label="Words" multiline required />
+        <TextInput source="words" label="Words" multiline required fullWidth />
+        <TextInput
+          source="phrases"
+          label="Phrases"
+          multiline
+          required
+          fullWidth
+        />
       </SimpleForm>
     </Edit>
   );
