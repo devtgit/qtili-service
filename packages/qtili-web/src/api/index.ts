@@ -113,7 +113,7 @@ export const getLesson = async () => {
         snd: "",
       },
     },
-    correctChoiceText: "",
+    correctChoiceText: "Қалыңыз қалай?",
   });
   answers.unshift(makeAnswer(ComposeType, id));
 

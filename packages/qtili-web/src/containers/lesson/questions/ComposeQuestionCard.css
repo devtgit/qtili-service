@@ -1,8 +1,8 @@
 .resultArea {
   border-radius: 6px;
-  min-height: 120px;
-  margin-bottom: 20px;
-  background: green;
+  min-height: 100px;
+  margin: 20px 0;
+  border: 2px solid green;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -18,17 +18,8 @@
 }
 
 .choiceDroppable {
-  background: #535bf2;
-  border-radius: 3px;
-}
-
-.itemContent {
-  border: 1px solid black;
-  border-radius: 3px;
-  padding: 5px 15px;
-  user-select: none;
-  background: #747bff;
-  text-align: center;
+  /*background: #535bf2;*/
+  /*border-radius: 3px;*/
 }
 
 body > div > .itemContent {

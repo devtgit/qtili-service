@@ -24,6 +24,7 @@ import { SortableContext, SortableData, useSortable } from "@dnd-kit/sortable";
 import { enableMapSet } from "immer";
 import { CSS } from "@dnd-kit/utilities";
 import { useAtomValue } from "jotai";
+import Chip from "@mui/material/Chip";
 import { ComposeQuestion, ComposeType } from "@/db/questions/ComposeQuestion";
 import { State } from "@/store/State";
 import { Actions } from "@/store/Actions";
@@ -237,11 +238,17 @@ export const renderItemContent = ({
 }) => {
   const style = {
     opacity: hidden ? 0 : 1,
+    borderRadius: 6,
   };
+
   return (
-    <div style={style} className="itemContent">
-      {item.wd}
-    </div>
+    <Chip
+      sx={style}
+      label={item.wd}
+      component="button"
+      variant="outlined"
+      clickable
+    />
   );
 };
 
