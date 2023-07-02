@@ -116,6 +116,7 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
           type: "MOVE_TO_RESULT",
           activeId: activeId,
         });
+        return;
       }
 
       if (isSortable(active.data.current) && isSortable(over.data.current)) {
@@ -125,59 +126,47 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
           activeIndex: active.data.current.sortable.index,
           overIndex: over.data.current.sortable.index,
         });
+        return;
       }
     }
   };
 
+  // event.over is null when user taps too fast
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
     const activeId = active.id as string;
 
-    if (over != null) {
-      if (isSortable(active.data.current)) {
-        if (!itemWasMovedRef.current) {
-          setAnswer(questionId, {
-            questionType: ComposeType,
-            type: "MOVE_TO_CHOICE",
-            activeIndex: active.data.current.sortable.index,
-          });
-        } else {
-          if (isSortable(over.data.current)) {
-            // REORDER_ITEMS handled in drag over
-          } else {
-            setAnswer(questionId, {
-              questionType: ComposeType,
-              type: "MOVE_TO_CHOICE",
-              activeIndex: active.data.current.sortable.index,
-            });
-          }
-        }
-      } else {
-        if (!itemWasMovedRef.current) {
-          setAnswer(questionId, {
-            questionType: ComposeType,
-            type: "MOVE_TO_RESULT",
-            activeId: activeId,
-          });
-        } else {
-          if (isSortable(over.data.current)) {
-            // MOVE_TO_RESULT handled in drag over
-          } else {
-            if (over.id === "result-droppable") {
-              setAnswer(questionId, {
-                questionType: ComposeType,
-                type: "MOVE_TO_RESULT",
-                activeId: activeId,
-              });
-            }
-          }
-        }
-      }
-    }
-
     itemWasMovedRef.current = false;
     setActiveId(null);
+
+    if (
+      !isSortable(active.data.current) &&
+      (over == null ||
+        !itemWasMovedRef.current ||
+        (!isSortable(over.data.current) && over.id === "result-droppable"))
+    ) {
+      setAnswer(questionId, {
+        questionType: ComposeType,
+        type: "MOVE_TO_RESULT",
+        activeId: activeId,
+      });
+      return;
+    }
+
+    if (
+      isSortable(active.data.current) &&
+      (over == null ||
+        !itemWasMovedRef.current ||
+        !isSortable(over.data.current))
+    ) {
+      setAnswer(questionId, {
+        questionType: ComposeType,
+        type: "MOVE_TO_CHOICE",
+        activeIndex: active.data.current.sortable.index,
+      });
+      return;
+    }
   };
 
   const handleDragCancel = () => {
