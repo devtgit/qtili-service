@@ -24,11 +24,13 @@ import { SortableContext, SortableData, useSortable } from "@dnd-kit/sortable";
 import { enableMapSet } from "immer";
 import { CSS } from "@dnd-kit/utilities";
 import { useAtomValue } from "jotai";
-import Chip from "@mui/material/Chip";
+import Typography from "@mui/material/Typography";
 import { ComposeQuestion, ComposeType } from "@/db/questions/ComposeQuestion";
 import { State } from "@/store/State";
 import { Actions } from "@/store/Actions";
 import { getSound } from "@/api";
+import { css } from "@emotion/css";
+import { useTheme } from "@emotion/react";
 
 enableMapSet();
 
@@ -242,26 +244,43 @@ export type Item = {
   wd: string;
 };
 
-export const renderItemContent = ({
+export const renderItemContent = (props: { item: Item; hidden?: boolean }) => {
+  return <ItemContent {...props} />;
+};
+
+const ItemContent = ({
   item,
   hidden = false,
 }: {
   item: Item;
   hidden?: boolean;
 }) => {
+  const theme = useTheme();
   const style = {
     opacity: hidden ? 0 : 1,
-    borderRadius: 6,
   };
 
   return (
-    <Chip
-      sx={style}
-      label={item.wd}
-      component="button"
-      variant="outlined"
-      clickable
-    />
+    <div
+      style={style}
+      className={css`
+        padding: 5px 10px;
+        border-radius: 6px;
+        border: 2px solid ${theme.border.main};
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        background-color: ${theme.palette.background.paper};
+        color: ${theme.palette.text.primary};
+        -webkit-tap-highlight-color: transparent;
+
+        &:disabled {
+          cursor: default;
+        }
+      `}
+    >
+      <Typography>{item.wd}</Typography>
+    </div>
   );
 };
 

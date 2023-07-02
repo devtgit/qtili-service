@@ -78,7 +78,7 @@ export const getLesson = async () => {
 
     for (const _ of new Array(choicesCount - 1).fill(1)) {
       const wordIndex = rand(questionWds.length - 1);
-      const wordWd = choiceWds[wordIndex];
+      const wordWd = questionWds[wordIndex];
       const word = wordsByWd[wordWd];
       const wordId = word.id;
 

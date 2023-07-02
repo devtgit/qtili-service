@@ -17,9 +17,19 @@
   flex-wrap: wrap;
 }
 
-.choiceDroppable {
+.itemContent {
+  border-radius: 3px;
+  padding: 5px 15px;
+  user-select: none;
+  /*background: #747bff;*/
+  text-align: center;
   /*background: #535bf2;*/
   /*border-radius: 3px;*/
+}
+
+.choiceDroppable {
+  background: #232323;
+  border-radius: 6px;
 }
 
 body > div > .itemContent {

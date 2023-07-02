@@ -26,7 +26,7 @@ export const theme = (mode: PaletteMode) =>
         "Ubuntu, Fira Sans, Inter, Avenir, Helvetica, Arial, sans-serif",
     },
     border: {
-      main: "#141414",
+      main: "#232323",
     },
   });
 
