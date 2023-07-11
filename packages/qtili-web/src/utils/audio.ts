@@ -12,22 +12,33 @@ const audio = new Audio();
 export const playWordSound = async (wd: string) => {
   audio.pause();
 
-  audio.src = await getSound(wd);
-
-  audio.currentTime = 0.2;
-  audio.play();
+  const src = await getSound(wd);
+  if (src) {
+    audio.src = src;
+    audio.currentTime = 0.2;
+    audio.play();
+  }
 };
 
 const sounds: Record<string, string> = {};
 
-export async function getSound(wd: string) {
+export async function getSound(wd: string): Promise<string | null> {
+  if (import.meta.env.VITE_STORAGE_EMULATOR_HOST) {
+    // prevent storage emulator request, this request breaks emulators down
+    return null;
+  }
+
   if (sounds[wd]) {
     return sounds[wd];
   }
 
-  const blob = await getBlob(ref(storage, `snd/${wd}.mp3`));
-  const src = URL.createObjectURL(blob);
+  try {
+    const blob = await getBlob(ref(storage, `snd/${wd}.mp3`));
+    const src = URL.createObjectURL(blob);
 
-  sounds[wd] = src;
-  return src;
+    sounds[wd] = src;
+    return src;
+  } catch (error) {
+    return null;
+  }
 }

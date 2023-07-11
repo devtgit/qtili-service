@@ -138,15 +138,17 @@ export const generateLesson = async (lessonId: string, userEmail: string) => {
 
   logger.info("words after", words);
 
-  // upload files
-  await Promise.all(
-    words.map(async (word) => {
-      // logger.info("start uploading", word);
-      const response = await soundWord(word);
-      // logger.info("response", word);
-      return uploadFile(response.data, word);
-    })
-  );
+  if (!process.env.FUNCTIONS_EMULATOR) {
+    // upload files
+    await Promise.all(
+      words.map(async (word) => {
+        // logger.info("start uploading", word);
+        const response = await soundWord(word);
+        // logger.info("response", word);
+        return uploadFile(response.data, word);
+      })
+    );
+  }
 
   // logger.info("res", res);
 

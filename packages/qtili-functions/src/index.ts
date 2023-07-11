@@ -12,6 +12,11 @@ import { generateLesson } from "./db";
 const app = express();
 app.use(cors({ origin: true }));
 
+app.get("/test", async (request: Request, response: Response) => {
+  logger.info("FUNCTIONS_EMULATOR", process.env.FUNCTIONS_EMULATOR);
+  return response.status(200).json({ hello: "world" });
+});
+
 app.post(
   "/translate",
   authorized,

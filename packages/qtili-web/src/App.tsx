@@ -22,6 +22,7 @@ import { StatPage } from "@/pages/StatPage";
 import { AppTopBar } from "@/containers/layout/AppTopBar";
 import { UIState } from "@/store/UIState";
 import { LessonLoading } from "@/containers/lesson/LessonLoading";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const location = new ReactLocation();
 
@@ -29,30 +30,32 @@ const App = () => {
   const lessonMode = useAtomValue(UIState.lessonMode);
 
   return (
-    <AppThemeProvider>
-      <CssBaseline />
-      <AppContainer>
-        {!lessonMode && (
-          <Router
-            location={location}
-            routes={[
-              { path: "/", element: <SchoolPage /> },
-              { path: "/settings", element: <SettingsPage /> },
-              { path: "/stat", element: <StatPage /> },
-            ]}
-          >
-            <AppTopBar />
-            <Outlet /> {/* Start rendering router matches */}
-            <AppBottomNavigation />
-          </Router>
-        )}
-        {lessonMode && (
-          <Suspense fallback={<LessonLoading />}>
-            <LessonMain />
-          </Suspense>
-        )}
-      </AppContainer>
-    </AppThemeProvider>
+    <ErrorBoundary>
+      <AppThemeProvider>
+        <CssBaseline />
+        <AppContainer>
+          {!lessonMode && (
+            <Router
+              location={location}
+              routes={[
+                { path: "/", element: <SchoolPage /> },
+                { path: "/settings", element: <SettingsPage /> },
+                { path: "/stat", element: <StatPage /> },
+              ]}
+            >
+              <AppTopBar />
+              <Outlet /> {/* Start rendering router matches */}
+              <AppBottomNavigation />
+            </Router>
+          )}
+          {lessonMode && (
+            <Suspense fallback={<LessonLoading />}>
+              <LessonMain />
+            </Suspense>
+          )}
+        </AppContainer>
+      </AppThemeProvider>
+    </ErrorBoundary>
   );
 };
 

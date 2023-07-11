@@ -17,7 +17,7 @@ import { getSound } from "@/utils/audio";
 const choicesCount = 4;
 
 export const getLesson = async () => {
-  const lessonDoc = await getDoc(doc(db, `lessons_draft/A7Nu35d3S5FB6Hz0RMC0`));
+  const lessonDoc = await getDoc(doc(db, `lessons_draft/AxpOpDn6MsQe626QC2DO`));
   const lesson = { id: lessonDoc.id, ...lessonDoc.data() } as Lesson;
 
   // set minimum timeout for downloading
