@@ -129,13 +129,15 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
 
     const activeId = active.id as string;
 
+    const itemWasMoved = itemWasMovedRef.current;
+
     itemWasMovedRef.current = false;
     setActiveId(null);
 
     if (
       !isSortable(active.data.current) &&
       (over == null ||
-        !itemWasMovedRef.current ||
+        !itemWasMoved ||
         (!isSortable(over.data.current) && over.id === "result-droppable"))
     ) {
       setAnswer(questionId, {
@@ -149,8 +151,8 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
     if (
       isSortable(active.data.current) &&
       (over == null ||
-        !itemWasMovedRef.current ||
-        !isSortable(over.data.current))
+        !itemWasMoved ||
+        (!isSortable(over.data.current) && over.id !== "result-droppable"))
     ) {
       setAnswer(questionId, {
         questionType: ComposeType,
