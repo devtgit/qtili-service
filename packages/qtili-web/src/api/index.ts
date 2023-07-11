@@ -9,10 +9,10 @@ import {
   where,
 } from "firebase/firestore/lite";
 import { Answer, Lesson, makeAnswer, Question, Word } from "@/db/types";
-import { db, storage } from "@/firebase/config";
-import { getBlob, ref } from "firebase/storage";
+import { db } from "@/firebase/config";
 import { Choice, ChoiceType } from "@/db/questions/ChoiceQuestion";
 import { ComposeType } from "@/db/questions/ComposeQuestion";
+import { getSound } from "@/utils/audio";
 
 const choicesCount = 4;
 
@@ -129,20 +129,6 @@ export const getLesson = async () => {
     answersRecord: Object.fromEntries(answers.map((x) => [x.id, x])),
   };
 };
-
-const sounds: Record<string, string> = {};
-
-export async function getSound(word: string) {
-  if (sounds[word]) {
-    return sounds[word];
-  }
-
-  const blob = await getBlob(ref(storage, `snd/${word}.mp3`));
-  const src = URL.createObjectURL(blob);
-
-  sounds[word] = src;
-  return src;
-}
 
 function range(size: number, startAt = 0) {
   return [...Array(size).keys()].map((i) => i + startAt);

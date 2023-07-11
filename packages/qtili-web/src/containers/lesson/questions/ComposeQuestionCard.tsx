@@ -28,13 +28,11 @@ import Typography from "@mui/material/Typography";
 import { ComposeQuestion, ComposeType } from "@/db/questions/ComposeQuestion";
 import { State } from "@/store/State";
 import { Actions } from "@/store/Actions";
-import { getSound } from "@/api";
 import { css } from "@emotion/css";
 import { useTheme } from "@emotion/react";
+import { playWordSound } from "@/utils/audio";
 
 enableMapSet();
-
-const audio = new Audio();
 
 export const ComposeQuestionCard = (props: { question: ComposeQuestion }) => {
   const { question } = props;
@@ -91,13 +89,7 @@ function ComposeAnswer(props: { question: ComposeQuestion }) {
     setActiveId(activeId);
 
     Promise.resolve().then(async () => {
-      audio.pause();
-
-      const src = await getSound(question.words[activeId].wd);
-
-      audio.src = src;
-      audio.currentTime = 0.16;
-      audio.play();
+      playWordSound(question.words[activeId].wd);
     });
   };
 

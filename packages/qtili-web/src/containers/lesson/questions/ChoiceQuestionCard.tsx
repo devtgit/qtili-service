@@ -5,9 +5,7 @@ import { ChoiceQuestion, ChoiceType } from "@/db/questions/ChoiceQuestion";
 import { State } from "@/store/State";
 import { Actions } from "@/store/Actions";
 import { ChoiceItem, ChoicesList } from "@/components/ChoicesList";
-import { getSound } from "@/api";
-
-const audio = new Audio();
+import { playWordSound } from "@/utils/audio";
 
 export const ChoiceQuestionCard = (props: { question: ChoiceQuestion }) => {
   const { question } = props;
@@ -50,13 +48,9 @@ const AnswerChoices = (props: { question: ChoiceQuestion }) => {
                   choiceId: choice.id,
                 });
 
-                audio.pause();
-
-                const src = await getSound(choice.text);
-
-                audio.src = src;
-                audio.currentTime = 0.16;
-                audio.play();
+                Promise.resolve().then(async () => {
+                  playWordSound(choice.text);
+                });
               }}
             />
           );
